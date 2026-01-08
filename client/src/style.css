@@ -1,0 +1,237 @@
+* {
+    box-sizing: border-box;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+body {
+    margin: 0;
+    /* background-color: #f5f7fb; */
+    background: linear-gradient(180deg,
+            #f1f5f9,
+            #e2e8f0);
+}
+
+.container {
+    max-width: 1000px;
+    margin: 20px auto;
+    padding: 20px;
+    background: rgba(255, 255, 255, 0.85);
+    border-radius: 12px;
+}
+
+nav {
+    background: #1e293b;
+    padding: 12px 20px;
+}
+
+nav a {
+    color: #ffffff;
+    margin-right: 12px;
+    text-decoration: none;
+    font-weight: 500;
+    position: relative;
+    transition: color 0.3s ease;
+}
+
+nav a::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    bottom: -4px;
+    width: 0%;
+    height: 2px;
+    background-color: #60a5fa;
+    transition: width 0.3s ease;
+}
+
+nav a:hover::after {
+    width: 100%;
+}
+
+nav a:hover {
+    color: #93c5fd;
+}
+
+nav button {
+    background: #ef4444;
+    color: white;
+    border: none;
+    padding: 6px 10px;
+    cursor: pointer;
+    border-radius: 4px;
+    transition: transform 0.2s ease, background 0.2s ease;
+}
+
+nav button:hover {
+    transform: translateY(-2px);
+    background: #dc2626;
+}
+
+h2 {
+    margin-top: 0;
+}
+
+input,
+select {
+    width: 100%;
+    padding: 8px;
+    margin: 8px 0;
+}
+
+button {
+    padding: 8px 14px;
+    background: #2563eb;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+button:hover {
+    opacity: 0.9;
+}
+
+ul {
+    padding-left: 18px;
+}
+
+li {
+    margin-bottom: 10px;
+}
+
+/* Job Grid Layout */
+.jobs-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+    gap: 20px;
+    margin-top: 20px;
+}
+
+/* Individual Job Card */
+.job-grid-card {
+    /* background: #ffffff; */
+    /* If you want slight color */
+    background: #f8fafc;
+    border-radius: 16px;
+    padding: 18px;
+    border: 1px solid #e5e7eb;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+/* Hover animation */
+.job-grid-card:hover {
+    transform: translateY(-10px) scale(1.02);
+    box-shadow: 0 20px 30px rgba(0, 0, 0, 0.12);
+}
+
+/* Card text */
+.job-grid-card h4 {
+    font-weight: 700;
+    margin-bottom: 6px;
+}
+
+.job-grid-card p {
+    margin: 6px 0;
+}
+
+/* Form container */
+.form-box {
+    max-width: 420px;
+    margin: 0 auto;
+}
+
+/* Compact inputs */
+.form-box input,
+.form-box select {
+    width: 100%;
+    padding: 10px 12px;
+    font-size: 14px;
+    border-radius: 6px;
+    border: 1px solid #d1d5db;
+    transition: border 0.25s ease, box-shadow 0.25s ease;
+}
+
+/* Focus animation */
+.form-box input:focus,
+.form-box select:focus {
+    outline: none;
+    border-color: #2563eb;
+    box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.15);
+}
+
+/* Form labels */
+.form-box label {
+    font-weight: 600;
+    margin-top: 12px;
+    display: block;
+}
+
+/* Submit button spacing */
+.form-box button {
+    margin-top: 16px;
+    width: fit-content;
+}
+
+/* Fade-in animation */
+@keyframes fadeUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* AI Summary Cards animation */
+.ai-summary-card {
+    animation: fadeUp 0.6s ease forwards;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.ai-summary-card:hover {
+    transform: translateY(-6px) scale(1.02);
+    box-shadow: 0 18px 30px rgba(37, 99, 235, 0.18);
+}
+
+/* AI Insight list cards */
+.ai-insight-item {
+    animation: fadeUp 0.8s ease forwards;
+    transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+
+.ai-insight-item:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 12px 20px rgba(0, 0, 0, 0.08);
+}
+
+/* Admin Grid */
+.admin-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+    gap: 20px;
+    margin-top: 20px;
+}
+
+/* Admin Cards */
+.admin-card {
+    background: #f9fafb;
+    border-radius: 16px;
+    padding: 18px;
+    border: 1px solid #e5e7eb;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+/* Hover animation */
+.admin-card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 18px 28px rgba(0, 0, 0, 0.12);
+}
+
+/* Admin card text */
+.admin-card h4 {
+    font-weight: 700;
+    margin-bottom: 8px;
+}
