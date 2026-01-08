@@ -113,4 +113,37 @@ npm run dev
 
 ```http://localhost:5173```
 
+--------------------------------------------------------------------------------------------
+
+# ENVIRONMENT VARIABLES:
+
+To keep sensitive data secure, the project uses environment variables:
+
+| Variable | Description |
+
+| MONGO_URI | MongoDB Atlas connection string |
+| JWT_SECRET | Secret key for JWT authentication |
+
+These values are excluded from version control using ``.gitignore``
+
+
+--------------------------------------------------------------------------------------------
+
+## API Endpoints (Overview):
+
+# Authentication
+- `POST /api/auth/signup`
+- `POST /api/auth/login`
+
+# Jobs
+- `GET /api/jobs`
+- `POST /api/jobs`
+- `PUT /api/jobs/:id`
+- `DELETE /api/jobs/:id`
+
+# Admin
+- `GET /api/jobs/all` (Admin only)
+
+# AI Insights
+- `GET /api/ai/insights`
 
