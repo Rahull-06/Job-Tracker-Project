@@ -35,27 +35,37 @@ function Admin() {
             {error && <p style={{ color: "red" }}>{error}</p>}
 
             <div className="admin-grid">
-                {jobs.map((job) => (
-                    <div className="admin-card" key={job._id}>
-                        <h4>{job.company}</h4>
+                {jobs.map((job) => {
+                    const status = job.status.toLowerCase();
 
-                        <p>
-                            <strong>Position:</strong> {job.position}
-                        </p>
+                    return (
+                        <div className="admin-card" key={job._id}>
+                            <h4>{job.company}</h4>
 
-                        <p>
-                            <strong>Status:</strong>{" "}
-                            <span style={{ textTransform: "capitalize" }}>
-                                {job.status}
-                            </span>
-                        </p>
+                            <p>
+                                <strong>Position:</strong> {job.position}
+                            </p>
 
-                        <p style={{ fontSize: "13px", color: "#374151" }}>
-                            User: {job.user?.email}
-                        </p>
-                    </div>
-                ))}
+                            <p>
+                                <strong>Status:</strong>{" "}
+                                <span className={`status-badge status-${status}`}>
+                                    {job.status}
+                                    {/* {status === "offer" && "🎉 Offer"}
+                                    {status === "interview" && "📅 Interview"}
+                                    {status === "applied" && "📝 Applied"}
+                                    {status === "rejected" && "❌ Rejected"}
+                                    {status} */}
+                                </span>
+                            </p>
+
+                            <p style={{ fontSize: "13px", color: "#374151" }}>
+                                User: {job.user?.email}
+                            </p>
+                        </div>
+                    );
+                })}
             </div>
+
         </div>
     );
 

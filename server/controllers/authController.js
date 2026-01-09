@@ -2,7 +2,7 @@
 // const bcrypt = require("bcryptjs");
 // const jwt = require("jsonwebtoken");
 
-// // =================== SIGNUP ===================
+// .....................SIGNUP.......................
 // exports.signup = async (req, res) => {
 //     try {
 //         const { name, email, password } = req.body;
@@ -38,7 +38,7 @@
 //     }
 // };
 
-// // =================== LOGIN ===================
+// //...................LOGIN.............................
 // exports.login = async (req, res) => {
 //     try {
 //         console.log("REQ BODY:", req.body);

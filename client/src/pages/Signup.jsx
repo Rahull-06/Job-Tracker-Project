@@ -1,11 +1,12 @@
 import { useState } from "react";
 import axiosInstance from "../api/axios";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link} from "react-router-dom";
 
 function Signup() {
     const [name, setName] = useState("");
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
+    const [passwordError, setPasswordError] = useState("");
     const [error, setError] = useState("");
 
     const navigate = useNavigate();
@@ -13,6 +14,11 @@ function Signup() {
     const handleSubmit = async (e) => {
         e.preventDefault();
         setError("");
+
+        if (passwordError) {
+            setError("Please fix password requirements");
+            return;
+        }
 
         try {
             await axiosInstance.post("/auth/signup", {
@@ -27,6 +33,20 @@ function Signup() {
             setError(err.response?.data?.message || "Signup failed");
         }
     };
+
+    const validatePassword = (pwd) => {
+        const regex =
+            /^(?=.*[0-9])(?=.*[!@#$%^&*])(?=.*[A-Z])(?!.*\s).{8,}$/;
+
+        if (!regex.test(pwd)) {
+            setPasswordError(
+                "Password must start with capital letter, contain number, special character, no spaces, min 8 chars"
+            );
+        } else {
+            setPasswordError("");
+        }
+    };
+
 
     return (
         <div className="container">
@@ -61,10 +81,26 @@ function Signup() {
                         <label>Password</label>
                         <input
                             type="password"
-                            placeholder="Enter your password"
                             value={password}
-                            onChange={(e) => setPassword(e.target.value)}
+                            onChange={(e) => {
+                                setPassword(e.target.value);
+                                validatePassword(e.target.value);
+                            }}
                         />
+                        {passwordError && (
+                            <p style={{ color: "red", fontSize: "13px" }}>
+                                {passwordError}
+                            </p>
+                        )}
+
+                        <p style={{ marginTop: "10px", fontSize: "14px" }}>
+                            Already have an account?{" "}
+                            <Link to="/login" style={{ color: "#2563eb", fontWeight: "600" }}>
+                                Login
+                            </Link>
+                        </p>
+
+
                     </div>
 
                     <button type="submit">Signup</button>
