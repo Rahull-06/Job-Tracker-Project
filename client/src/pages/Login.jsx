@@ -44,7 +44,7 @@ function Login() {
                     <label>Email</label>
                     <input
                         type="email"
-                        placeholder="Enter your email"
+                        // placeholder="Enter your email"
                         value={email}
                         onChange={(e) => setEmail(e.target.value)}
                     />
@@ -52,21 +52,19 @@ function Login() {
                     <label>Password</label>
                     <input
                         type="password"
-                        placeholder="Enter your password"
+                        // placeholder="Enter your password"
                         value={password}
                         onChange={(e) => setPassword(e.target.value)}
                     />
 
-                    <p style={{ marginTop: "10px", fontSize: "14px" }}>
-                        Don’t have an account?{" "}
-                        <Link to="/signup" style={{ color: "#2563eb", fontWeight: "600" }}>
-                            Signup
-                        </Link>
-                    </p>
-
                     <button type="submit" disabled={loading}>
                         {loading ? "Logging in..." : "Login"}
                     </button>
+
+                    <p style={{ marginTop: 10 }}>
+                        Don’t have an account? <Link to="/signup">Signup</Link>
+                    </p>
+
                 </form>
             </div>
         </div>

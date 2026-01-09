@@ -22,8 +22,11 @@ const app = express();
 // );
 app.use(
     cors({
-        origin: true,
-        credentials: true
+        origin: [
+            "http://localhost:5173",
+            "https://job-tracker-project.vercel.app"
+        ],
+        credentials: true,
     })
 );
 
