@@ -1,7 +1,7 @@
 import axios from "axios";
 
 const axiosInstance = axios.create({
-    baseURL: "https://job-tracker-mern-backend.onrender.com/api",
+    baseURL: "https://job-tracker-mern-backend.onrender.com",
     headers: {
         "Content-Type": "application/json",
     },
@@ -15,5 +15,3 @@ axiosInstance.interceptors.request.use((config) => {
     }
     return config;
 });
-
-export default axiosInstance;
