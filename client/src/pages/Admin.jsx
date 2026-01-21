@@ -8,7 +8,7 @@ function Admin() {
     const [jobs, setJobs] = useState([]);
     const [error, setError] = useState("");
 
-    // extra safety
+    // Redirect if not admin
     if (user?.role !== "admin") {
         return <Navigate to="/dashboard" replace />;
     }
@@ -16,7 +16,7 @@ function Admin() {
     useEffect(() => {
         const fetchAllJobs = async () => {
             try {
-                const res = await axiosInstance.get("/jobs/all");
+                const res = await axiosInstance.get("/api/jobs/all");
                 setJobs(res.data);
             } catch (err) {
                 setError(err.response?.data?.message || "Access denied");
@@ -50,11 +50,6 @@ function Admin() {
                                 <strong>Status:</strong>{" "}
                                 <span className={`status-badge status-${status}`}>
                                     {job.status}
-                                    {/* {status === "offer" && "🎉 Offer"}
-                                    {status === "interview" && "📅 Interview"}
-                                    {status === "applied" && "📝 Applied"}
-                                    {status === "rejected" && "❌ Rejected"}
-                                    {status} */}
                                 </span>
                             </p>
 
@@ -65,10 +60,8 @@ function Admin() {
                     );
                 })}
             </div>
-
         </div>
     );
-
 }
 
 export default Admin;

@@ -9,7 +9,7 @@ function AIInsights() {
     useEffect(() => {
         const fetchInsights = async () => {
             try {
-                const res = await axiosInstance.get("/ai/insights");
+                const res = await axiosInstance.get("/api/ai/insights");
                 setSummary(res.data.summary);
                 setInsights(res.data.insights);
             } catch (err) {

@@ -21,7 +21,7 @@ function Signup() {
         }
 
         try {
-            await axiosInstance.post("/auth/signup", {
+            await axiosInstance.post("/api/auth/signup", {
                 name,
                 email,
                 password

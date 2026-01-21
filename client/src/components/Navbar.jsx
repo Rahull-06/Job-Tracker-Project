@@ -1,117 +1,74 @@
-// import { Link, useNavigate, useLocation } from "react-router-dom";
-// import { useAuth } from "../auth/AuthContext";
+// =====================================
+// Navbar Component
+// - Shows links based on auth
+// - Sticky navbar
+// - Theme toggle button
+// =====================================
 
-// function Navbar() {
-//     const { isAuthenticated, user, logout } = useAuth();
-//     const navigate = useNavigate();
-
-//     const handleLogout = () => {
-//         logout();
-//         navigate("/login");
-//     };
-//     const location = useLocation();
-
-//     const isActive = (path) =>
-//         location.pathname === path
-//             ? { fontWeight: "700", color: "#2563eb" }
-//             : {};
-
-
-//     return (
-//         <nav
-//             style={{
-//                 display: "flex",
-//                 alignItems: "center",
-//                 gap: "12px",
-//                 marginBottom: "20px"
-//             }}>
-//             <Link to="/" style={isActive("/")}>Home</Link>{" | "}
-
-//             {!isAuthenticated && (
-//                 <>
-//                     <Link to="/login">Login</Link>{" | "}
-//                     <Link to="/signup">Signup</Link>
-//                 </>
-//             )}
-
-//             {isAuthenticated && (
-//                 <>
-//                     <Link to="/dashboard" style={isActive("/dashboard")}>Dashboard</Link>{" | "}
-//                     <Link to="/add-job" style={isActive("/add-job")}>Add Job</Link>{" | "}
-//                     <Link to="/ai-insights" style={isActive("/ai-insights")}>AI Insights</Link>{" | "}
-
-//                     {user?.role === "admin" && (
-//                         <>
-//                             <Link to="/admin" style={isActive("/admin")}>Admin</Link>{" | "}
-//                         </>
-//                     )}
-
-//                     <button onClick={handleLogout}>Logout</button>
-//                 </>
-//             )}
-//         </nav>
-//     );
-// }
-
-// export default Navbar;
 import { Link, useNavigate, useLocation } from "react-router-dom";
 import { useAuth } from "../auth/AuthContext";
+import { useTheme } from "../theme/ThemeContext";
 
 function Navbar() {
     const { isAuthenticated, user, logout } = useAuth();
+    const { theme, toggleTheme } = useTheme();
+
     const navigate = useNavigate();
     const location = useLocation();
 
+    // Highlight active link
+    const isActive = (path) =>
+        location.pathname === path ? "nav-link active" : "nav-link";
+
+    // Logout handler
     const handleLogout = () => {
         logout();
         navigate("/login");
     };
 
-    // active link handler
-    const isActive = (path) =>
-        location.pathname === path ? "nav-link active" : "nav-link";
-
     return (
-        <nav>
-            <Link to="/" className={isActive("/")}>
-                Home
-            </Link>
+        <nav className="navbar">
+            
+            {/* ===== Left Side Links ===== */}
+            <div className="nav-left">
+                <Link to="/" className={isActive("/")}>Home</Link>
 
-            {!isAuthenticated && (
-                <>
-                    <Link to="/login" className={isActive("/login")}>
-                        Login
-                    </Link>
+                {!isAuthenticated && (
+                    <>
+                        <Link to="/login" className={isActive("/login")}>Login</Link>
+                        <Link to="/signup" className={isActive("/signup")}>Signup</Link>
+                    </>
+                )}
 
-                    <Link to="/signup" className={isActive("/signup")}>
-                        Signup
-                    </Link>
-                </>
-            )}
+                {isAuthenticated && (
+                    <>
+                        <Link to="/dashboard" className={isActive("/dashboard")}>Dashboard</Link>
+                        <Link to="/add-job" className={isActive("/add-job")}>Add Job</Link>
+                        <Link to="/ai-insights" className={isActive("/ai-insights")}>AI Insights</Link>
 
-            {isAuthenticated && (
-                <>
-                    <Link to="/dashboard" className={isActive("/dashboard")}>
-                        Dashboard
-                    </Link>
+                        {/* Admin link only if role === admin */}
+                        {user?.role === "admin" && (
+                            <Link to="/admin" className={isActive("/admin")}>Admin</Link>
+                        )}
+                    </>
+                )}
+            </div>
 
-                    <Link to="/add-job" className={isActive("/add-job")}>
-                        Add Job
-                    </Link>
+            {/* ===== Right Side Buttons ===== */}
+            <div className="nav-right">
+                
+                {/* Theme Toggle Button */}
+                <button onClick={toggleTheme} className="theme-btn">
+                    {theme === "light" ? "🌙 Dark" : "☀ Light"}
+                </button>
 
-                    <Link to="/ai-insights" className={isActive("/ai-insights")}>
-                        AI Insights
-                    </Link>
-
-                    {user?.role === "admin" && (
-                        <Link to="/admin" className={isActive("/admin")}>
-                            Admin
-                        </Link>
-                    )}
-
-                    <button onClick={handleLogout}>Logout</button>
-                </>
-            )}
+                {/* Logout */}
+                {isAuthenticated && (
+                    <button onClick={handleLogout} className="logout-btn">
+                        Logout
+                    </button>
+                )}
+            </div>
         </nav>
     );
 }

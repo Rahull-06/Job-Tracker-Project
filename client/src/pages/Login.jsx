@@ -18,7 +18,7 @@ function Login() {
         setLoading(true);
 
         try {
-            const response = await axiosInstance.post("/auth/login", {
+            const response = await axiosInstance.post("/api/auth/login", {
                 email,
                 password,
             });
@@ -32,7 +32,7 @@ function Login() {
         }
     };
 
-    // ✅ JSX MUST BE HERE (outside handleSubmit)
+    // JSX MUST BE HERE (outside handleSubmit)
     return (
         <div className="container">
             <h2>Login</h2>

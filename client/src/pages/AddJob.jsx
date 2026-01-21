@@ -15,7 +15,7 @@ function AddJob() {
         setError("");
 
         try {
-            await axiosInstance.post("/jobs", {
+            await axiosInstance.post("/api/jobs", {
                 company,
                 position,
                 status

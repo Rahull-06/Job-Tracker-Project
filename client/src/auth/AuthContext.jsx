@@ -1,36 +1,25 @@
-import { createContext, useContext, useEffect, useState } from "react";
+import { createContext, useContext, useState } from "react";
 
 const AuthContext = createContext();
 
 export const AuthProvider = ({ children }) => {
-    const [user, setUser] = useState(null);
-    const [token, setToken] = useState(null);
 
-    // load auth data from localStorage on app start
-    useEffect(() => {
-        const storedUser = localStorage.getItem("user");
-        const storedToken = localStorage.getItem("token");
+    const storedUser = JSON.parse(localStorage.getItem("user"));
+    const storedToken = localStorage.getItem("token");
 
-        if (storedUser && storedToken) {
-            setUser(JSON.parse(storedUser));
-            setToken(storedToken);
-        }
-    }, []);
+    const [user, setUser] = useState(storedUser || null);
+    const [token, setToken] = useState(storedToken || null);
 
-    // login
+    // Correct login function
     const login = (userData, token) => {
-        localStorage.setItem("user", JSON.stringify(userData));
+        localStorage.setItem("user", JSON.stringify(userData)); // ✅ fixed
         localStorage.setItem("token", token);
-
         setUser(userData);
         setToken(token);
     };
 
-    // logout
     const logout = () => {
-        localStorage.removeItem("user");
-        localStorage.removeItem("token");
-
+        localStorage.clear();
         setUser(null);
         setToken(null);
     };
@@ -50,5 +39,4 @@ export const AuthProvider = ({ children }) => {
     );
 };
 
-// custom hook
 export const useAuth = () => useContext(AuthContext);
