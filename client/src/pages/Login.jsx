@@ -1,8 +1,7 @@
 import { useState } from "react";
-import axiosInstance from "../api/axios";
+import API from "../api/axios";
 import { useAuth } from "../auth/AuthContext";
 import { useNavigate, Link } from "react-router-dom";
-
 
 function Login() {
     const [email, setEmail] = useState("");
@@ -20,7 +19,7 @@ function Login() {
         setLoading(true);
 
         try {
-            const response = await axiosInstance.post("/api/auth/login", {
+            const response = await API.post("/api/auth/login", {
                 email,
                 password,
             });
@@ -34,7 +33,6 @@ function Login() {
         }
     };
 
-    // JSX
     return (
         <div className="container">
             <h2>Login</h2>
@@ -46,7 +44,6 @@ function Login() {
                     <label>Email</label>
                     <input
                         type="email"
-                        // placeholder="Enter your email"
                         value={email}
                         onChange={(e) => setEmail(e.target.value)}
                     />
@@ -67,12 +64,10 @@ function Login() {
                                 right: "10px",
                                 top: "50%",
                                 transform: "translateY(-50%)",
-                                cursor: "pointer"
+                                cursor: "pointer",
                             }}
                         >
                             {showPassword ? "🔓" : "🔒"}
-                            {/* {showPassword ? "Hide" : "Show"} */}
-                            
                         </span>
                     </div>
 
@@ -84,11 +79,9 @@ function Login() {
                         Don’t have an account? <Link to="/signup">Signup</Link>
                     </p>
 
-                    <p style={{ marginTop: "10px" }}>
+                    <p style={{ marginTop: 10 }}>
                         <Link to="/forgot-password">Forgot Password?</Link>
                     </p>
-
-
                 </form>
             </div>
         </div>
