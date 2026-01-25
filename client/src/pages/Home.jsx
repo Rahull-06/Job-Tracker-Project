@@ -1,9 +1,7 @@
 function Home() {
     return (
         <div className="container">
-            <h1 style={{ fontWeight: "700" }}>
-                Job Tracker 🚀
-            </h1>
+            <h1 className="app-title">Job Tracker 🚀</h1>
 
             <p style={{ marginTop: "10px", fontSize: "16px" }}>
                 Track your job applications, analyze progress, and

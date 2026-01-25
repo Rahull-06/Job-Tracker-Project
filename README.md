@@ -5,7 +5,7 @@ An intelligent, full-stack web application that helps users to->"track job appli
 
 # Project Overview:
 
-Applying for multiple jobs manually often leads to confusion, missed follow-ups, and poor tracking.  
+Applying for multiple jobs manually often leads to confusion, missed follow-ups, and poor tracking.
 This project solves that problem by providing a "centralized job tracker" with "secure authentication, role-based access and AI-powered analytics".
 ---------------------------------------------------------------------------------------------
 
@@ -103,7 +103,7 @@ cd server
 npm install
 npm run dev
 
-```http://localhost:4000```
+```http://localhost:5000```
 
 #Frontend Setup:
 

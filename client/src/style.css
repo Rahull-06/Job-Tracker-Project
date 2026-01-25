@@ -6,12 +6,13 @@
 body {
     margin: 0;
     background: linear-gradient(180deg, #f1f5f9, #e2e8f0);
+    font-family: Arial, sans-serif;
 }
 
 /* Main container */
 .container {
-    max-width: 1000px;
-    margin: 20px auto;
+    max-width: 900px;
+    margin: auto;
     padding: 20px;
     background: rgba(255, 255, 255, 0.85);
     border-radius: 12px;
@@ -99,6 +100,111 @@ nav button {
     background: #2563eb;
 }
 
+/* Navbar */
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    background: #222;
+    padding: 10px;
+}
+
+
+.navbar a, .navbar button {
+    color: white;
+    margin: 5px;
+    text-decoration: none;
+}
+
+/* Navbar */
+.top-navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 20px;
+    background: #111;
+    color: white;
+}
+
+.logo {
+    font-size: 20px;
+}
+
+.nav-links {
+    display: flex;
+    gap: 20px;
+}
+
+.nav-links a {
+    color: white;
+    text-decoration: none;
+}
+
+.active-link {
+    border-bottom: 2px solid #3b82f6;
+}
+
+.nav-actions {
+    display: flex;
+    gap: 10px;
+}
+
+.theme-btn, .logout-btn {
+    padding: 6px 14px;
+    border-radius: 6px;
+    border: none;
+    cursor: pointer;
+}
+
+.theme-btn {
+    background: #2563eb;
+    color: white;
+}
+
+.logout-btn {
+    background: #ef4444;
+    color: white;
+}
+
+/* Hamburger */
+.hamburger {
+    display: none;
+    font-size: 26px;
+    cursor: pointer;
+}
+
+/* Mobile Sidebar */
+.mobile-menu {
+    display: none;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .nav-links, .nav-actions {
+        display: none;
+    }
+
+    .hamburger {
+        display: block;
+    }
+
+    .mobile-menu {
+        display: flex;
+        flex-direction: column;
+        background: #111;
+        padding: 15px;
+    }
+
+    .mobile-menu a, .mobile-menu button {
+        color: white;
+        padding: 10px 0;
+        border: none;
+        background: none;
+        text-align: left;
+        font-size: 16px;
+    }
+}
+
 /* ================= GENERAL ================= */
 
 h2 {
@@ -119,6 +225,13 @@ button {
     border: none;
     border-radius: 4px;
     cursor: pointer;
+}
+
+input, button {
+    width: 100%;
+    padding: 10px;
+    margin-top: 8px;
+    font-size: 16px;
 }
 
 button:hover {
@@ -193,9 +306,20 @@ button:hover {
     font-weight: 600;
 }
 
-.ai-green { background: #dcfce7; color: #166534; }
-.ai-blue { background: #e0f2fe; color: #075985; }
-.ai-beige { background: #fef3c7; color: #92400e; }
+.ai-green {
+    background: #dcfce7;
+    color: #166534;
+}
+
+.ai-blue {
+    background: #e0f2fe;
+    color: #075985;
+}
+
+.ai-beige {
+    background: #fef3c7;
+    color: #92400e;
+}
 
 /* ================= ADMIN ================= */
 
@@ -211,7 +335,7 @@ button:hover {
     border-radius: 18px;
     padding: 22px 24px;
     border: 1px solid #e5e7eb;
-    box-shadow: 0 10px 20px rgba(0,0,0,0.06);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.06);
 }
 
 .admin-card h4 {
@@ -234,10 +358,25 @@ button:hover {
     font-weight: 600;
 }
 
-.status-offer { background: #dcfce7; color: #166534; }
-.status-applied { background: #fef3c7; color: #92400e; }
-.status-interview { background: #e0f2fe; color: #075985; }
-.status-rejected { background: #fee2e2; color: #991b1b; }
+.status-offer {
+    background: #dcfce7;
+    color: #166534;
+}
+
+.status-applied {
+    background: #fef3c7;
+    color: #92400e;
+}
+
+.status-interview {
+    background: #e0f2fe;
+    color: #075985;
+}
+
+.status-rejected {
+    background: #fee2e2;
+    color: #991b1b;
+}
 
 /* ================================================= */
 /* =============== THEME SYSTEM ==================== */
@@ -255,7 +394,7 @@ body.light {
 }
 
 body.light .container {
-    background: rgba(255,255,255,0.85);
+    background: rgba(255, 255, 255, 0.85);
 }
 
 /* ---------- DARK THEME ---------- */
@@ -320,7 +459,7 @@ body.dark button:hover {
 .admin-card:hover {
     transform: translateY(-6px) scale(1.02);
     transition: transform 0.3s ease, box-shadow 0.3s ease;
-    box-shadow: 0 20px 35px rgba(0,0,0,0.25);
+    box-shadow: 0 20px 35px rgba(0, 0, 0, 0.25);
 }
 
 /* ===== Page Transition Animation ===== */
@@ -334,8 +473,75 @@ body.dark button:hover {
         opacity: 0;
         transform: translateY(10px);
     }
+
     to {
         opacity: 1;
         transform: translateY(0);
     }
+}
+
+/* Mobile adjustments */
+@media (max-width: 600px) {
+    .navbar {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+
+    .nav-left, .nav-right {
+        display: flex;
+        flex-direction: column;
+        width: 100%;
+    }
+
+
+    input, button {
+        font-size: 18px;
+    }
+}
+
+/* Card Grid */
+.card-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+}
+
+/* Tablet */
+@media (max-width: 900px) {
+    .card-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+/* Mobile */
+@media (max-width: 600px) {
+    .card-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+.theme-btn {
+    padding: 6px 14px;
+    font-size: 14px;
+}
+
+.app-title {
+    font-size: 32px;
+    font-weight: 800;
+    color: #2563eb;
+    margin-bottom: 10px;
+}
+
+.app-subtitle {
+    display: block;
+    font-size: 14px;
+    font-weight: 500;
+    color: #64748b;
+}
+
+.highlight {
+    color: #22c55e;
+    font-size: 14px;
+    margin-left: 6px;
 }

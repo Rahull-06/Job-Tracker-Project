@@ -1,6 +1,6 @@
 import { useState } from "react";
 import axiosInstance from "../api/axios";
-import { useNavigate, Link} from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 
 function Signup() {
     const [name, setName] = useState("");
@@ -8,6 +8,7 @@ function Signup() {
     const [password, setPassword] = useState("");
     const [passwordError, setPasswordError] = useState("");
     const [error, setError] = useState("");
+    const [showPassword, setShowPassword] = useState(false);
 
     const navigate = useNavigate();
 
@@ -79,14 +80,28 @@ function Signup() {
 
                     <div>
                         <label>Password</label>
-                        <input
-                            type="password"
-                            value={password}
-                            onChange={(e) => {
-                                setPassword(e.target.value);
-                                validatePassword(e.target.value);
-                            }}
-                        />
+
+                        <div style={{ position: "relative" }}>
+                            <input
+                                type={showPassword ? "text" : "password"}
+                                value={password}
+                                onChange={(e) => setPassword(e.target.value)}
+                                style={{ paddingRight: "40px" }}
+                            />
+                            <span
+                                onClick={() => setShowPassword(!showPassword)}
+                                style={{
+                                    position: "absolute",
+                                    right: "10px",
+                                    top: "50%",
+                                    transform: "translateY(-50%)",
+                                    cursor: "pointer"
+                                }}
+                            >
+                                {showPassword ? "🔓" : "🔒"}
+                            </span>
+                        </div>
+
                         {passwordError && (
                             <p style={{ color: "red", fontSize: "13px" }}>
                                 {passwordError}

@@ -59,7 +59,7 @@ function Dashboard() {
     return (
         <div className="container">
 
-            {/* Header */}
+            {/* ===== HEADER ===== */}
             <div
                 style={{
                     display: "flex",
@@ -74,9 +74,6 @@ function Dashboard() {
                 <div style={{ fontSize: "14px", textAlign: "right" }}>
                     <div><strong>Status:</strong> Logged In</div>
                     <div><strong>User:</strong> {user?.email}</div>
-                    <button onClick={handleLogout} style={{ marginTop: "6px" }}>
-                        Logout
-                    </button>
                 </div>
             </div>
 
@@ -90,7 +87,8 @@ function Dashboard() {
                 <p style={{ textAlign: "center" }}>No jobs found</p>
             )}
 
-            <div className="jobs-grid">
+            {/* ===== JOB CARD GRID ===== */}
+            <div className="card-grid">
                 {jobs.map((job) => (
                     <div className="job-grid-card" key={job._id}>
                         <h4>{job.company}</h4>
@@ -120,7 +118,6 @@ function Dashboard() {
                     </div>
                 ))}
             </div>
-
         </div>
     );
 }

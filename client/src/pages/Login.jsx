@@ -3,11 +3,13 @@ import axiosInstance from "../api/axios";
 import { useAuth } from "../auth/AuthContext";
 import { useNavigate, Link } from "react-router-dom";
 
+
 function Login() {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [error, setError] = useState("");
     const [loading, setLoading] = useState(false);
+    const [showPassword, setShowPassword] = useState(false);
 
     const { login } = useAuth();
     const navigate = useNavigate();
@@ -32,7 +34,7 @@ function Login() {
         }
     };
 
-    // JSX MUST BE HERE (outside handleSubmit)
+    // JSX
     return (
         <div className="container">
             <h2>Login</h2>
@@ -50,12 +52,29 @@ function Login() {
                     />
 
                     <label>Password</label>
-                    <input
-                        type="password"
-                        // placeholder="Enter your password"
-                        value={password}
-                        onChange={(e) => setPassword(e.target.value)}
-                    />
+
+                    <div style={{ position: "relative" }}>
+                        <input
+                            type={showPassword ? "text" : "password"}
+                            value={password}
+                            onChange={(e) => setPassword(e.target.value)}
+                            style={{ paddingRight: "40px" }}
+                        />
+                        <span
+                            onClick={() => setShowPassword(!showPassword)}
+                            style={{
+                                position: "absolute",
+                                right: "10px",
+                                top: "50%",
+                                transform: "translateY(-50%)",
+                                cursor: "pointer"
+                            }}
+                        >
+                            {showPassword ? "🔓" : "🔒"}
+                            {/* {showPassword ? "Hide" : "Show"} */}
+                            
+                        </span>
+                    </div>
 
                     <button type="submit" disabled={loading}>
                         {loading ? "Logging in..." : "Login"}
@@ -64,6 +83,11 @@ function Login() {
                     <p style={{ marginTop: 10 }}>
                         Don’t have an account? <Link to="/signup">Signup</Link>
                     </p>
+
+                    <p style={{ marginTop: "10px" }}>
+                        <Link to="/forgot-password">Forgot Password?</Link>
+                    </p>
+
 
                 </form>
             </div>

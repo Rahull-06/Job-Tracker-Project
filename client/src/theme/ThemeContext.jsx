@@ -1,8 +1,3 @@
-// =====================================
-// Theme Context
-// Handles Dark / Light mode globally
-// =====================================
-
 import { createContext, useContext, useEffect, useState } from "react";
 
 const ThemeContext = createContext();
@@ -14,7 +9,7 @@ export const ThemeProvider = ({ children }) => {
 
     // Apply theme class to <body>
     useEffect(() => {
-        document.body.className = theme; 
+        document.body.className = theme;
         localStorage.setItem("theme", theme);
     }, [theme]);
 
