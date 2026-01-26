@@ -82,22 +82,35 @@ exports.login = async (req, res) => {
 
 // Send OTP
 exports.forgotPassword = async (req, res) => {
-    const { email } = req.body;
+    try {
+        const { email } = req.body;
 
-    const user = await User.findOne({ email });
-    if (!user) return res.status(404).json({ message: "User not found" });
 
-    const otp = Math.floor(100000 + Math.random() * 900000).toString();
-    const hashedOtp = crypto.createHash("sha256").update(otp).digest("hex");
+        const user = await User.findOne({ email });
+        if (!user) return res.status(404).json({ message: "User not found" });
 
-    user.resetOtp = hashedOtp;
-    user.resetOtpExpire = Date.now() + 10 * 60 * 1000; // 10 minutes
 
-    await user.save();
+        // Generate OTP
+        const otp = crypto.randomInt(100000, 999999).toString();
 
-    await sendEmail(email, "Password Reset OTP", `Your OTP is: ${otp}`);
 
-    res.json({ message: "OTP sent to email" });
+        // Save OTP in DB
+        user.resetOtp = otp;
+        user.otpExpiry = Date.now() + 10 * 60 * 1000; // 10 mins
+        await user.save();
+        // Send Email
+        await sendEmail(
+            user.email,
+            "Password Reset OTP",
+            `Your OTP is ${otp}`
+        );
+
+        res.json({ message: "OTP sent successfully" });
+
+    } catch (error) {
+        console.log("Forgot Password Error:", error);
+        res.status(500).json({ message: "Error sending OTP" });
+    }
 };
 
 // Verify OTP & Reset Password

@@ -10,9 +10,9 @@ export const AuthProvider = ({ children }) => {
     const [user, setUser] = useState(storedUser || null);
     const [token, setToken] = useState(storedToken || null);
 
-    // Correct login function
+    // login function
     const login = (userData, token) => {
-        localStorage.setItem("user", JSON.stringify(userData)); // ✅ fixed
+        localStorage.setItem("user", JSON.stringify(userData));
         localStorage.setItem("token", token);
         setUser(userData);
         setToken(token);

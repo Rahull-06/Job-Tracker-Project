@@ -7,15 +7,12 @@ export default function ResetPassword() {
     const [newPassword, setNewPassword] = useState("");
     const [message, setMessage] = useState("");
     const navigate = useNavigate();
-    const [showPassword, setShowPassword] = useState(false);
-
-    // Get stored email automatically
-    const email = localStorage.getItem("resetEmail");
+    // const [showPassword, setShowPassword] = useState(false);
+    // const hashedOtp = crypto.createHash("sha256").update(otp).digest("hex");
 
     const submitHandler = async () => {
         try {
             const res = await axios.post("/api/auth/reset-password", {
-                email,
                 otp,
                 newPassword
             });

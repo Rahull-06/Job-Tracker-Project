@@ -7,19 +7,19 @@ export default function ForgotPassword() {
     const [message, setMessage] = useState("");
     const navigate = useNavigate();
 
-    const submitHandler = async () => {
+    const sendOtp = async () => {
+        if (!email) {
+            setMessage("Please enter your email");
+            return;
+        }
         try {
             const res = await axios.post("/api/auth/forgot-password", { email });
             setMessage(res.data.message);
+            // alert("OTP sent to your email");
 
-            // Save email for next step
             localStorage.setItem("resetEmail", email);
 
-            // Redirect to reset password page after 1 second
-            setTimeout(() => {
-                navigate("/reset-password");
-            }, 1000);
-
+            setTimeout(() => navigate("/reset-password"), 1000);
 
         } catch (err) {
             setMessage(err.response?.data?.message || "Error sending OTP");
@@ -32,13 +32,12 @@ export default function ForgotPassword() {
             {/* <input value={email} onChange={e => setEmail(e.target.value)} placeholder="Enter email" /> */}
             <input
                 type="email"
-                id="email"
-                name="email"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 placeholder="Enter email"
             />
-            <button onClick={submitHandler}>Send OTP</button>
+            <button onClick={sendOtp}>Send OTP</button>
+
             <p>{message}</p>
         </div>
     );
