@@ -2,17 +2,16 @@ const { Resend } = require("resend");
 
 const resend = new Resend(process.env.RESEND_API_KEY);
 
-const sendEmail = async (email, subject, text) => {
+const sendEmail = async (to, subject, text) => {
     try {
         await resend.emails.send({
-            from: "Job Tracker <onboarding@resend.dev>",
-            to: email,
-            subject: subject,
-            text: text
+            from: process.env.EMAIL_FROM,
+            to,
+            subject,
+            text,
         });
 
-        console.log("OTP Email sent successfully to:", email);
-
+        console.log("OTP Email sent successfully to:", to);
     } catch (error) {
         console.error("EMAIL SENDING ERROR 👉", error);
         throw new Error("Email sending failed");
