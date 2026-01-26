@@ -80,61 +80,50 @@ exports.login = async (req, res) => {
     });
 };
 
-// Send OTP
+// ===== FORGOT PASSWORD =====
 exports.forgotPassword = async (req, res) => {
     try {
         const { email } = req.body;
 
-
         const user = await User.findOne({ email });
         if (!user) return res.status(404).json({ message: "User not found" });
 
-
-        // Generate OTP
         const otp = crypto.randomInt(100000, 999999).toString();
 
-
-        // Save OTP in DB
         user.resetOtp = otp;
-        user.otpExpiry = Date.now() + 10 * 60 * 1000; // 10 mins
+        user.otpExpiry = Date.now() + 10 * 60 * 1000;
         await user.save();
-        // Send Email
-        await sendEmail(
-            user.email,
-            "Password Reset OTP",
-            `Your OTP is ${otp}`
-        );
+
+        await sendEmail(user.email, "Password Reset OTP", `Your OTP is ${otp}`);
 
         res.json({ message: "OTP sent successfully" });
-
-    } catch (error) {
-        console.log("Forgot Password Error:", error);
+    } catch {
         res.status(500).json({ message: "Error sending OTP" });
     }
 };
 
-// Verify OTP & Reset Password
+// ===== RESET PASSWORD =====
 exports.resetPassword = async (req, res) => {
-    const { otp, newPassword } = req.body;
+    try {
+        const { otp, newPassword } = req.body;
 
-    const hashedOtp = crypto.createHash("sha256").update(otp).digest("hex");
+        const user = await User.findOne({
+            resetOtp: otp,
+            otpExpiry: { $gt: Date.now() }
+        });
 
-    const user = await User.findOne({
-        resetOtp: hashedOtp,
-        resetOtpExpire: { $gt: Date.now() }
-    });
+        if (!user)
+            return res.status(400).json({ message: "Invalid or expired OTP" });
 
-    if (!user)
-        return res.status(400).json({ message: "Invalid or expired OTP" });
+        user.password = await bcrypt.hash(newPassword, 10);
+        user.resetOtp = undefined;
+        user.otpExpiry = undefined;
 
-    // Hash new password properly
-    const hashedPassword = await bcrypt.hash(newPassword, 10);
-    user.password = hashedPassword;
+        await user.save();
 
-    user.resetOtp = undefined;
-    user.resetOtpExpire = undefined;
+        res.json({ message: "Password reset successful" });
 
-    await user.save();
-
-    res.json({ message: "Password reset successful" });
+    } catch {
+        res.status(500).json({ message: "Reset failed" });
+    }
 };

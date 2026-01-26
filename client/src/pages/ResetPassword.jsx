@@ -7,10 +7,13 @@ export default function ResetPassword() {
     const [newPassword, setNewPassword] = useState("");
     const [message, setMessage] = useState("");
     const navigate = useNavigate();
-    // const [showPassword, setShowPassword] = useState(false);
-    // const hashedOtp = crypto.createHash("sha256").update(otp).digest("hex");
 
     const submitHandler = async () => {
+        if (!otp || !newPassword) {
+            setMessage("Please fill all fields");
+            return;
+        }
+
         try {
             const res = await axios.post("/api/auth/reset-password", {
                 otp,
@@ -19,13 +22,7 @@ export default function ResetPassword() {
 
             setMessage(res.data.message);
 
-            // Clear stored email
-            localStorage.removeItem("resetEmail");
-
-            // Redirect to login
-            setTimeout(() => {
-                navigate("/login");
-            }, 1500);
+            setTimeout(() => navigate("/login"), 1500);
 
         } catch (err) {
             setMessage(err.response?.data?.message || "Reset failed");
@@ -43,18 +40,11 @@ export default function ResetPassword() {
             />
 
             <input
-                type={showPassword ? "text" : "password"}
-                placeholder="Enter New Password"
+                type="password"
+                placeholder="New Password"
                 value={newPassword}
                 onChange={(e) => setNewPassword(e.target.value)}
             />
-
-            <span
-                onClick={() => setShowPassword(!showPassword)}
-                style={{ cursor: "pointer", marginLeft: "8px" }}
-            >
-                {showPassword ? "🔓" : "🔒"}
-            </span>
 
             <button onClick={submitHandler}>Reset</button>
 
